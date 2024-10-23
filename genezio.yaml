@@ -1,12 +1,3 @@
-name: chat-app
-region: eu-central-1
-yamlVersion: 2
-services:
-    databases:
-        - name: chat-app
-          region: eu-central-1
-          type: mongo-atlas
-
 backend:
     functions:
         - entry: dist/app.js
@@ -18,13 +9,12 @@ backend:
         name: js
     path: express
     scripts:
-        local:
-            - npm install
-            - npm run build
         deploy:
             - npm install
             - npm run build
-
+        local:
+            - npm install
+            - npm run build
 frontend:
     environment:
         VITE_API_URL: ${{ backend.functions.express.url }}
@@ -40,3 +30,12 @@ frontend:
             - npm run dev
     sdk:
         language: ts
+    subdomain: whitesmoke-those-jackal
+name: chat-app
+region: eu-central-1
+services:
+    databases:
+        - name: chat-app
+          region: eu-central-1
+          type: mongo-atlas
+yamlVersion: 2
